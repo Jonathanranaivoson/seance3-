@@ -54,13 +54,33 @@ function creerLigne(etu) {
    l'attente, et une erreur réseau n'est pas gérée.
    --------------------------------------------------------- */
 async function charger() {
-  // TODO 1.2 : ajouter la classe is-loading sur zone
-  // TODO 1.4 : try / catch / finally (voir l'énoncé)
-  // TODO 1.5 : désactiver le bouton pendant le chargement
-  const etudiants = await apiGetEtudiants();
-  afficher(etudiants);
-  // TODO 3.2 : toasts de succès et d'erreur
+  try {
+    // TODO 1.2 : ajouter la classe is-loading sur zone
+    zone.classList.add('is-loading');
+    
+    // TODO 1.5 : désactiver le bouton pendant le chargement
+    btnCharger.disabled = true;
+
+    // Appel API et affichage
+    const etudiants = await apiGetEtudiants();
+    afficher(etudiants);
+
+    // TODO 3.2 : toast de succès
+    toast('Données chargées avec succès !', 'success');
+
+  } catch (erreur) {
+    // TODO 3.2 : toast d'erreur (si l'API plante)
+    toast('Erreur lors du chargement des données', 'error');
+    console.error(erreur);
+
+  } finally {
+    // TODO 1.4 : Le bloc finally s'exécute TOUJOURS (succès ou échec)
+    // C'est l'endroit parfait pour nettoyer l'interface :
+    zone.classList.remove('is-loading'); // On enlève le mode chargement
+    btnCharger.disabled = false;            // On réactive le bouton
+  }
 }
+
 
 /* ---------------------------------------------------------
    NIVEAU 2 — AFFICHER ET RETIRER
