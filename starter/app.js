@@ -69,15 +69,13 @@ async function charger() {
     toast('Données chargées avec succès !', 'success');
 
   } catch (erreur) {
-    // TODO 3.2 : toast d'erreur (si l'API plante)
     toast('Erreur lors du chargement des données', 'error');
     console.error(erreur);
 
   } finally {
     // TODO 1.4 : Le bloc finally s'exécute TOUJOURS (succès ou échec)
-    // C'est l'endroit parfait pour nettoyer l'interface :
-    zone.classList.remove('is-loading'); // On enlève le mode chargement
-    btnCharger.disabled = false;            // On réactive le bouton
+    zone.classList.remove('is-loading'); 
+    btnCharger.disabled = false;            
   }
 }
 
